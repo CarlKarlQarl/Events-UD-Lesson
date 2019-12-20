@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
       let deleteButton = document.createElement('button')
       deleteButton.innerText = 'delete'
       deleteButton.addEventListener('click', ()=>{
-        event.target.parentNode.remove()
-        deleteBagel(bagel.id)
+        // event.target.parentNode.remove()
+        updateBagel(bagel.id)
       })
       li.appendChild(deleteButton)
       bagelsUl.appendChild(li)
@@ -41,10 +41,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
       body:JSON.stringify({type:newBagel})
     })
   }
-  
-  function deleteBagel(chair){
-    fetch(`http://bagel-api-fis.herokuapp.com/bagels/${chair}`, {
+
+  function deleteBagel(id){
+    fetch(`http://bagel-api-fis.herokuapp.com/bagels/${id}`, {
       method:'DELETE'
+    })
+  }
+
+  function updateBagel(id){
+    fetch(`http://bagel-api-fis.herokuapp.com/bagels/${id}`,{
+      method:'PUT',
+      headers:{
+        'Content-Type':'application/json',
+        'Accept':'application/json'
+      },
+      body:JSON.stringify({type:"yo bagel"})
     })
   }
 })
